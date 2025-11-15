@@ -1,0 +1,121 @@
+/* Stylesheet for HWiNFO® HTML report (Specs.HTM)
+   Drop this file next to Specs.HTM and add in the <head>:
+   <link rel="stylesheet" href="styles.css">
+
+   Features:
+   - Clean, readable layout
+   - Semantic styling for TD classes used by HWiNFO: dt, ds, di, dn, pt
+   - Responsive table wrapper and print-friendly rules
+   - Light + dark theme via prefers-color-scheme
+*/
+
+:root{
+  --bg: #ffffff;
+  --panel: #f5f7fa;
+  --muted: #6b7280;
+  --accent: #0b69ff;
+  --text: #0f172a;
+  --border: #e6e9ef;
+  --link: #0b69ff;
+  --shadow: 0 6px 18px rgba(2,6,23,0.08);
+  --mono: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg: #0b1220;
+    --panel: #071021;
+    --muted: #94a3b8;
+    --accent: #3ea6ff;
+    --text: #e6eef8;
+    --border: rgba(255,255,255,0.06);
+    --link: #6ec1ff;
+    --shadow: 0 6px 18px rgba(0,0,0,0.6);
+  }
+}
+
+/* Page layout */
+html,body{height:100%;margin:0;background:var(--bg);color:var(--text);font-family:var(--mono);-webkit-font-smoothing:antialiased}
+body{padding:28px;box-sizing:border-box}
+
+/* Center content and limit width */
+.container{max-width:1100px;margin:0 auto;background:linear-gradient(180deg,transparent,transparent);padding:18px;border-radius:12px;box-shadow:var(--shadow)}
+
+/* Head/title */
+h1,h2{margin:.2rem 0 0.6rem 0;font-weight:600}
+h1{font-size:1.4rem;color:var(--accent)}
+
+/* Make original HWiNFO tables look modern */
+table{width:100%;border-collapse:collapse;background:transparent;margin:8px 0 18px 0}
+tr{vertical-align:top}
+td{padding:8px 10px;border-bottom:1px solid var(--border);font-size:0.95rem}
+
+/* Utility column widths used in the report */
+td[width="16"], td[width="40%"]{white-space:nowrap}
+
+/* Classes used in the HWiNFO HTML */
+TD.pt{font-size:1.2rem;font-weight:700;color:var(--accent);padding:14px 10px}
+TD.dt{font-weight:700;font-size:1.05rem;color:var(--accent);padding-top:12px;padding-bottom:6px}
+TD.ds{font-weight:600;color:var(--muted);background:transparent}
+TD.di{font-weight:700;color:var(--text)}
+TD.dn{color:var(--muted);font-weight:500}
+
+/* Links */
+a{color:var(--link);text-decoration:none}
+a:hover{text-decoration:underline}
+
+/* Small-print tweaks */
+.small{font-size:0.82rem;color:var(--muted)}
+
+/* Make long text wrap nicely */
+td{word-break:break-word}
+
+/* Section separators */
+hr{border:0;height:1px;background:var(--border);margin:14px 0;border-radius:4px}
+
+/* Alternate row shading for readability */
+tr:nth-child(even) td{background:rgba(0,0,0,0.01)}
+@media (prefers-color-scheme: dark){
+  tr:nth-child(even) td{background:rgba(255,255,255,0.02)}
+}
+
+/* Responsive: horizontal scroll on small screens */
+.table-wrap{overflow:auto;border-radius:8px}
+
+/* Assets like the top meta table */
+.meta-table td{padding:6px 8px}
+
+/* Make device name / product stand out */
+.product-title{display:flex;align-items:center;gap:12px}
+.product-title .brand{font-weight:800;font-size:1.05rem}
+.product-title .serial{font-size:0.85rem;color:var(--muted)}
+
+/* Print-friendly rules */
+@media print{
+  body{padding:4mm;background:#fff;color:#000}
+  .container{box-shadow:none;border-radius:0}
+  a:after{content:""}
+  tr:nth-child(even) td{background:transparent}
+}
+
+/* Compact mode helper classes (use by adding class "compact" on body) */
+body.compact td{padding:6px 8px;font-size:0.9rem}
+body.compact TD.pt{font-size:1.05rem}
+
+/* Small utility: emphasize vulnerabilities or warnings */
+.warn{color:#b45309;font-weight:700}
+.err{color:#dc2626;font-weight:700}
+
+/* Make code-like values stand out */
+.codeval{font-family:monospace,ui-monospace; background:rgba(0,0,0,0.03);padding:2px 6px;border-radius:6px}
+@media (prefers-color-scheme: dark){.codeval{background:rgba(255,255,255,0.03)}}
+
+/* Accessibility touches */
+:focus{outline:3px solid rgba(11,105,255,0.18);outline-offset:2px}
+
+/* Small device tweaks */
+@media (max-width:520px){
+  body{padding:10px}
+  .container{padding:10px}
+  TD.pt{font-size:1rem}
+}
